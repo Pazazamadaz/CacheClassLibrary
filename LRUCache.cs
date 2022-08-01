@@ -18,7 +18,7 @@ namespace Cache
 		}
 
 		// each time when access the node, we move it to the top
-		public int GetCachedValueByKey(int key)
+		public object GetCachedValueByKey(int key)
 		{
 			if (!map.ContainsKey(key)) return -1;
 			LRUNode node = map[key];
@@ -27,7 +27,7 @@ namespace Cache
 			return node.Value;
 		}
 
-		public void AddValueToCacheByKey(int key, int value)
+		public void AddValueToCacheByKey(int key, object value)
 		{
 			// just need to update value and move it to the top
 			if (map.ContainsKey(key))

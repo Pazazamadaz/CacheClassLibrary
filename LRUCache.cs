@@ -12,7 +12,7 @@ namespace Cache
 		public LRUCache(int capacity)
 		{
 			this.capacity = capacity;
-			this.count = 0;
+			count = 0;
 			map = new Dictionary<int, LRUNode>();
 			doubleLinkedList = new LRUDoubleLinkedList();
 		}

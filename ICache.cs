@@ -6,6 +6,6 @@
         object GetCachedValueByKey(int key);
 
         // add a new value to the cache
-        void AddValueToCacheByKey(int key, object value);
+        void AddValueToCacheByKey(int key, object value, out string rtrnMessage);
     }
 }

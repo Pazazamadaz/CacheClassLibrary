@@ -20,6 +20,7 @@ namespace Cache
 			
 		}
 
+		// Associated unit tests need to be able to clear the cache
 		public void EmptyTheCache()
         {
 			List<int> cacheKeys = _cacheLedger.Select(c => c.Key).ToList();
@@ -29,7 +30,7 @@ namespace Cache
 			}
 		}
 
-		public object GetCachedValueByKey(int key)
+		public object? GetCachedValueByKey(int key)
 		{
 			int counter = _cacheLedger[key];
 			object existingCachedValue;
@@ -37,8 +38,10 @@ namespace Cache
 			// If the key exists in the cache
 			if (cache.TryGetValue(key, out existingCachedValue))
             {
-				// then update the ledger then return the corresponding value
+				// then update the counter for it in the ledger 
 				_cacheLedger[key] = counter++;
+
+				// then return the value
 				return existingCachedValue;	
             }
 
@@ -56,11 +59,12 @@ namespace Cache
 				// then update the ledger
 				if (_cacheLedger.ContainsKey(key))
                 {
-					//int counter = _cacheLedger[key];
+					// increment the counter if it already exists in the ledger
 					_cacheLedger[key] = counter++;
 				}
 				else
                 {
+					// or add a new entry for it to the ledger with the increased counter value
 					_cacheLedger[key] = counter++;
                 }
 			}
@@ -75,7 +79,7 @@ namespace Cache
 				// and replace it with the new one
 				cache.Set(key, value, cacheEntryOption);
 
-				// and then remove the ledger entry
+				// and then remove it's reference in the ledger
 				_cacheLedger.Remove(leastUsed);
 
 				// and replace it with a new one
